@@ -8,11 +8,11 @@ Sistema de envio de e-mails utilizando sendgrid
 
 ## 🚀 Tecnologias Utilizadas
 
-* Java 17+
-* Spring Boot
-* Spring Web
-* Spring Mail
-* Maven
+- Java 17+
+- Spring Boot
+- Spring Web
+- Spring Mail
+- Maven
 
 ---
 
