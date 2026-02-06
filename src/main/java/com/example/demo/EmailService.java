@@ -3,6 +3,7 @@ package com.example.demo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
 
 @Service
 public class EmailService {
@@ -27,7 +29,7 @@ public class EmailService {
     private String senderEmail;
 
     @Value("${sendgrid.receiver.email}")
-    private String receiverEmail;
+    private String receiversEmail;
 
     private final String templatePath = "templates/";
 
@@ -46,23 +48,29 @@ public class EmailService {
                         "{{data}}", emailDto.date(),
                         "{{hora}}", emailDto.time()));
 
-        return buildMail(senderEmail, receiverEmail, "Nova solicitação de visita", html);
+        return buildMail(senderEmail, List.of(receiversEmail.split(", ")),
+                "Nova solicitação de visita", html);
     }
 
     private Mail buildApplicantEmail(EmailDTO emailDto) {
         String html = readAndReplaceLabels(
-                templatePath + "solicitante_modelo_2.html",
+                templatePath + "solicitante_modelo_3.html",
                 Map.of("{{nome}}", emailDto.name()));
 
-        return buildMail(senderEmail, emailDto.email(), "Solicitação de visita registrada", html);
+        return buildMail(senderEmail, List.of(emailDto.email()), "Solicitação de visita registrada", html);
     }
 
-    private Mail buildMail(String from, String to, String subject, String html) {
-        return new Mail(
-                new Email(from),
-                subject,
-                new Email(to),
-                new Content("text/html", html));
+    private Mail buildMail(String from, List<String> tos, String subject, String html) {
+        Mail mail = new Mail();
+        mail.setFrom(new Email(from));
+        mail.setSubject(subject);
+        mail.addContent(new Content("text/html", html));
+
+        Personalization personalization = new Personalization();
+        tos.forEach(to -> personalization.addTo(new Email(to)));
+        mail.addPersonalization(personalization);
+
+        return mail;
     }
 
     private void sendEmail(Mail mail) {
