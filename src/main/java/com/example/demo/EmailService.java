@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -42,11 +43,13 @@ public class EmailService {
         String html = readAndReplaceLabels(
                 templatePath + "setor_modelo_2.html",
                 Map.of(
-                        "{{nome}}", emailDto.name(),
+                        "{{name}}", emailDto.name(),
                         "{{email}}", emailDto.email(),
-                        "{{telefone}}", emailDto.phone(),
-                        "{{data}}", emailDto.date(),
-                        "{{hora}}", emailDto.time()));
+                        "{{date}}", emailDto.date(),
+                        "{{time}}", emailDto.time(),
+                        "{{instituiton}}", emailDto.instituiton(),
+                        "{{numVisitors}}", emailDto.numVisitors(),
+                        "{{message}}", emailDto.message()));
 
         return buildMail(senderEmail, List.of(receiversEmail.split(", ")),
                 "Nova solicitação de visita", html);
@@ -55,7 +58,7 @@ public class EmailService {
     private Mail buildApplicantEmail(EmailDTO emailDto) {
         String html = readAndReplaceLabels(
                 templatePath + "solicitante_modelo_3.html",
-                Map.of("{{nome}}", emailDto.name()));
+                Map.of("{{name}}", emailDto.name()));
 
         return buildMail(senderEmail, List.of(emailDto.email()), "Solicitação de visita registrada", html);
     }
@@ -91,10 +94,13 @@ public class EmailService {
         }
     }
 
-    private String readAndReplaceLabels(String path, Map<String, String> values) {
+    private String readAndReplaceLabels(String path, Map<String, Object> values) {
         String template = readTemplate(path);
-        for (Map.Entry<String, String> label : values.entrySet()) {
-            template = template.replace(label.getKey(), label.getValue());
+        for (Map.Entry<String, Object> label : values.entrySet()) {
+            template = template.replace(
+                label.getKey(),
+                Objects.toString(label.getValue(), "")
+        );
         }
         return template;
     }
