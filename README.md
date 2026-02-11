@@ -37,17 +37,19 @@ sendgrid.receiver.email=EMAIL_SETOR
 ## 📡 Exemplo de Requisição
 
 ```http
-POST /email/enviar
+POST /email
 Content-Type: application/json
 ```
 
 ```json
 {
-  "destinatario": "usuario@dominio.com",
-  "assunto": "Solicitação Recebida",
-  "nome": "João Silva",
-  "setor": "TI",
-  "template": "solicitante_modelo_1"
+    "name": "Jonh Doe",
+    "email": "email@contato.com",
+    "instituiton": "minha intituição ltda",
+    "date": "30/01/2026",
+    "time": "15:30",
+    "numVisitors": 5,
+    "message": "Duas crianças de 8 e 10 irão na visita"
 }
 ```
 
