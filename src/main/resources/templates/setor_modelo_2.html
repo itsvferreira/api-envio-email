@@ -2,69 +2,74 @@
 <html lang="pt-BR">
 
 <head>
-    <title></title>
-    <!--[if !mso]><!-- -->
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--<![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova solicitação de visita</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#f2f4f6; font-family:Arial, Helvetica, sans-serif;">
 
     <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
-            <td align="center" style="padding:40px 16px;">
+            <td align="center" style="padding:32px 16px;">
 
+                <!-- Container -->
                 <table width="100%" cellpadding="0" cellspacing="0"
-                    style="background:#ffffff; border-radius:6px; max-width:600px; overflow: hidden;">
+                    style="max-width:600px; background-color:#FFFFFF; border-radius:6px;">
 
                     <tr>
-                        <td style="background-color:#2E7D32; padding:20px; text-align:center;">
-                            <strong style="font-size:16px; color:#ffffff;">
-                                Nova solicitação de visita registrada
-                            </strong>
-                        </td>
-                    </tr>
+                        <td style="padding:24px 32px; font-size:14px; color:#2F2F2F; line-height:1.6;">
+                            <h1 style="margin:0; font-size:18px; color:#0473B2;">
+                                Nova solicitação de visita
+                            </h1>
 
-                    <tr>
-                        <td style="padding:32px; font-size:14px; color:#2F2F2F; line-height:1.6;">
+                            <p>Uma nova solicitação está disponível para confirmação.</p>
 
-                            <p style="margin-top:0;">
-                                Uma nova solicitação está disponível para confirmação.
+                            <hr style="margin-bottom: 20px; border:none; border-top:1px solid #60C4E3;">
+
+                            <p style="margin-top:0; margin-bottom:12px; font-weight:bold;">
+                                Dados do agendamento
+                            </p>
+
+                            <p style="margin:0;">
+                                <strong>Nome do responsável:</strong> {{name}}<br>
+                                <strong>E-mail para contato:</strong> {{email}}<br>
+                                <strong>Instituição:</strong> {{institution}}<br>
+                                <strong>Data desejada:</strong> {{date}} às {{hour}}<br>
+                                <strong>Número de visitantes:</strong> {{visitors}}<br>
                             </p>
 
                             <table width="100%" cellpadding="0" cellspacing="0"
-                                style="margin:20px 0; background:#f7f9f8;">
+                                style="margin-top:20px; background-color:#f7f9fb; border-left:4px solid #0473B2; border-radius:4px;">
                                 <tr>
-                                    <td style="padding: 8px 16px; color:#2F2F2F;">
-                                        <p><strong>Dados do solicitante</strong></p>
-
-                                        <p>
-                                            <strong>Nome:</strong> {{nome}}<br>
-                                            <strong>E-mail:</strong> {{email}}<br>
-                                            <strong>Telefone:</strong> {{telefone}}<br>
-                                            <strong>Data desejada para a visita:</strong> {{data}} às {{hora}}
-                                        </p>
+                                    <td style="padding:16px; font-size:14px; color:#2F2F2F;">
+                                        <strong style="display:block; margin-bottom:8px;">
+                                            Observações
+                                        </strong>
+                                        {{observations}}
                                     </td>
                                 </tr>
                             </table>
 
-                            <a href="mailto:{{email}}?subject=Confirmação%20de%20visita&body=Olá {{nome}},%0D%0A%0D%0ASua visita foi confirmada.%0D%0A%0D%0AData: {{data}}%0D%0AHorário: {{hora}}%0D%0ALocal: ...%0D%0A%0D%0AAtenciosamente,%0D%0ASetor de Sustentabilidade"
-                                style='padding: 8px 12px; background-color: #2E7D32; color: #ffffff; text-decoration: none; display: inline-block; font-size: 14px; margin-top: 14px; border: none; border-radius: 2px;'>Confirmar
-                                visita</a>
+                            <hr style="margin-top: 20px; border:none; border-top:1px solid #60C4E3;">
+
+                            <a href="mailto:{{email}}?subject=Confirmação%20de%20visita&body=Olá {{name}},%0D%0A%0D%0ASua visita foi confirmada.%0D%0A%0D%0AData: {{date}}%0D%0AHorário: {{hour}}%0D%0ALocal: ...%0D%0A%0D%0AAtenciosamente,"
+                                style="display:inline-block; margin-top: 20px; padding:8px 12px; background-color:#0473B2; color:#FFFFFF; text-decoration:none; font-size:14px; border-radius:4px;">
+                                Confirmar visita
+                            </a>
+
                         </td>
                     </tr>
-
                 </table>
+
+                <p style="margin-top:16px; font-size:12px; color:#777777; text-align:center;">
+                    Mensagem automática • Plataforma de Sustentabilidade
+                </p>
 
             </td>
         </tr>
     </table>
-
-    <p style="margin-top:-14px; font-size:12px; color:#777777; text-align: center;">
-        Mensagem automática • Plataforma de Sustentabilidade PUCRS
-    </p>
 
 </body>
 
